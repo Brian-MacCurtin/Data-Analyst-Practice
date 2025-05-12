@@ -76,13 +76,10 @@ WITH top_10_jobs AS (
     SELECT *
     FROM (
         SELECT DISTINCT ON (cd.name)
-            jpf.job_id,
             cd.name AS company_name,
             jpf.job_title AS title,
-            jpf.job_location AS location,
-            jpf.salary_year_avg AS yearly_salary,
-            jpf.job_schedule_type AS contract_type,
-            jpf.job_posted_date::DATE AS date
+            jpf.job_id,
+            jpf.salary_year_avg AS yearly_salary
         FROM 
             job_postings_fact jpf
         LEFT JOIN company_dim cd ON jpf.company_id = cd.company_id
@@ -117,10 +114,7 @@ WITH top_10_jobs AS (
             jpf.job_id,
             cd.name AS company_name,
             jpf.job_title AS title,
-            jpf.job_location AS location,
-            jpf.salary_year_avg AS yearly_salary,
-            jpf.job_schedule_type AS contract_type,
-            jpf.job_posted_date::DATE AS date
+            jpf.salary_year_avg AS yearly_salary
         FROM 
             job_postings_fact jpf
         LEFT JOIN company_dim cd ON jpf.company_id = cd.company_id
