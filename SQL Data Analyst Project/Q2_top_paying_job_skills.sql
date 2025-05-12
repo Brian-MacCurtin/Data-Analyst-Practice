@@ -1,17 +1,14 @@
 -- RESEARCH QUESTION #2: What are the skills required for the top paying data analyst jobs
 
 
--- FInding all skills associated with the top 10 remote paying jobs
+-- Finding all skills associated with the top 10 paying remote data analyst jobs
 -- @block
 WITH top_10_jobs AS (
     SELECT 
         cd.name AS company_name,
         jpf.job_title AS title,
         jpf.job_id,
-        jpf.job_location AS location,
-        jpf.salary_year_avg AS yearly_salary,
-        jpf.job_schedule_type AS contract_type,
-        jpf.job_posted_date::DATE AS date
+        jpf.salary_year_avg AS yearly_salary
     FROM 
         job_postings_fact jpf
     LEFT JOIN company_dim cd
@@ -25,27 +22,26 @@ WITH top_10_jobs AS (
     LIMIT 10
 )
 
-SELECT *
+SELECT 
+    t10.*,
+    sd.skills
 FROM 
     top_10_jobs t10
-LEFT JOIN skills_job_dim sjd
+INNER JOIN skills_job_dim sjd
     ON t10.job_id = sjd.job_id
-LEFT JOIN skills_dim sd 
+INNER JOIN skills_dim sd 
     ON sd.skill_id = sjd.skill_id
 
 
 
--- Most wanted skills for top 10 paying remote jobs
+-- Most frequently required skills for the top 10 paying remote data analyst jobs
 -- @block
 WITH top_10_jobs AS (
     SELECT 
         cd.name AS company_name,
         jpf.job_title AS title,
         jpf.job_id,
-        jpf.job_location AS location,
-        jpf.salary_year_avg AS yearly_salary,
-        jpf.job_schedule_type AS contract_type,
-        jpf.job_posted_date::DATE AS date
+        jpf.salary_year_avg AS yearly_salary
     FROM 
         job_postings_fact jpf
     LEFT JOIN company_dim cd
@@ -64,9 +60,48 @@ SELECT
     sd.skills
 FROM 
     top_10_jobs t10
-LEFT JOIN skills_job_dim sjd
+INNER JOIN skills_job_dim sjd
     ON t10.job_id = sjd.job_id
-LEFT JOIN skills_dim sd 
+INNER JOIN skills_dim sd 
+    ON sd.skill_id = sjd.skill_id
+GROUP BY
+    sd.skills
+ORDER BY
+    num_jobs DESC
+
+
+
+
+
+-- Most frequently required skills for the top 10 paying data analyst jobs in Philadelphia, PA
+-- @block
+WITH top_10_jobs AS (
+    SELECT 
+        cd.name AS company_name,
+        jpf.job_title AS title,
+        jpf.job_id,
+        jpf.salary_year_avg AS yearly_salary
+    FROM 
+        job_postings_fact jpf
+    LEFT JOIN company_dim cd
+        ON jpf.company_id = cd.company_id
+    WHERE 
+        jpf.job_title_short = 'Data Analyst' AND 
+        jpf.job_location = 'Philadelphia, PA' AND
+        jpf.salary_year_avg IS NOT NULL
+    ORDER BY
+        jpf.salary_year_avg DESC
+    LIMIT 10
+)
+
+SELECT 
+    count(*) AS num_jobs,
+    sd.skills
+FROM 
+    top_10_jobs t10
+INNER JOIN skills_job_dim sjd
+    ON t10.job_id = sjd.job_id
+INNER JOIN skills_dim sd 
     ON sd.skill_id = sjd.skill_id
 GROUP BY
     sd.skills
