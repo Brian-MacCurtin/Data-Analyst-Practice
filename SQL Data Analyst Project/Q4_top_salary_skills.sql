@@ -1,90 +1,53 @@
 -- RESEARCH QUESTION #4: What are the top skills based on salary for a data analyst?
 
+-- Top data analyst skills required for different salary ranges
 -- @block
-WITH data_analyst_jobs AS (
-    SELECT *, 
-    CASE 
-        WHEN salary_year_avg < 50000 Then '<50k'
-        WHEN salary_year_avg >= 50000 AND salary_year_avg < 65000 Then '50-65k'
-        WHEN salary_year_avg >= 65000 AND salary_year_avg < 80000 Then '65-80k'
-        WHEN salary_year_avg >= 80000 AND salary_year_avg < 95000 Then '80-95k'
-        WHEN salary_year_avg >= 95000 AND salary_year_avg < 120000 Then '95-120k'
-        WHEN salary_year_avg >= 120000 AND salary_year_avg < 135000 Then '120-135k'
-        WHEN salary_year_avg >= 135000 AND salary_year_avg < 150000 Then '135-150k'
-        WHEN salary_year_avg >= 150000 Then '>150k'
-    END AS salary_range
-    FROM
-        job_postings_fact 
-    WHERE
-        job_title_short = 'Data Analyst' AND
-        salary_year_avg IS NOT Null
-)
-
-
-
-
-SELECT 
-    daj.salary_range 
-FROM (
+WITH job_salary_ranges AS (
     SELECT 
-        count(*) AS num_jobs,
-        sd.skills
-    FROM
-        data_analyst_jobs daj
-    LEFT JOIN skills_job_dim sjd
-        ON sjd.job_id = daj.job_id
-    LEFT JOIN skills_dim sd
-        ON sd.skill_id = sjd.skill_id
+        job_id,
+        CASE 
+            WHEN salary_year_avg < 50000 THEN '<50k'
+            WHEN salary_year_avg < 65000 THEN '50-65k'
+            WHEN salary_year_avg < 80000 THEN '65-80k'
+            WHEN salary_year_avg < 95000 THEN '80-95k'
+            WHEN salary_year_avg < 120000 THEN '95-120k'
+            WHEN salary_year_avg < 135000 THEN '120-135k'
+            WHEN salary_year_avg < 150000 THEN '135-150k'
+            ELSE '>150k'
+        END AS salary_range
+    FROM 
+        job_postings_fact
     WHERE 
-        sd.skills IS NOT Null
-    GROUP BY
-        sd.skills
-    ORDER BY 
-        num_jobs DESC
-    LIMIT 10
-)
-
-
-
-
--- previous code
--- @block
-WITH data_analyst_jobs AS (
-    SELECT *, 
-    CASE 
-        WHEN salary_year_avg < 50000 Then '<50k'
-        WHEN salary_year_avg >= 50000 AND salary_year_avg < 65000 Then '50-65k'
-        WHEN salary_year_avg >= 65000 AND salary_year_avg < 80000 Then '65-80k'
-        WHEN salary_year_avg >= 80000 AND salary_year_avg < 95000 Then '80-95k'
-        WHEN salary_year_avg >= 95000 AND salary_year_avg < 120000 Then '95-120k'
-        WHEN salary_year_avg >= 120000 AND salary_year_avg < 135000 Then '120-135k'
-        WHEN salary_year_avg >= 135000 AND salary_year_avg < 150000 Then '135-150k'
-        WHEN salary_year_avg >= 150000 Then '>150k'
-    END AS salary_range
-    FROM
-        job_postings_fact 
-    WHERE
         job_title_short = 'Data Analyst' AND
-        salary_year_avg IS NOT Null
+        salary_year_avg IS NOT NULL
+),
+skill_counts AS (
+    SELECT 
+        jsr.salary_range,
+        sd.skills,
+        COUNT(*) AS skill_count,
+        ROW_NUMBER() OVER (PARTITION BY jsr.salary_range ORDER BY COUNT(*) DESC) AS rank
+    FROM 
+        job_salary_ranges jsr
+    JOIN skills_job_dim sjd 
+            ON jsr.job_id = sjd.job_id
+    JOIN skills_dim sd 
+        ON sjd.skill_id = sd.skill_id
+    GROUP BY 
+        jsr.salary_range, sd.skills
 )
-
 
 SELECT 
-    daj.salary_range,
-    count(*) AS num_jobs,
-    sd.skills
-FROM
-    data_analyst_jobs daj
-LEFT JOIN skills_job_dim sjd
-    ON sjd.job_id = daj.job_id
-LEFT JOIN skills_dim sd
-    ON sd.skill_id = sjd.skill_id
+    salary_range,
+    skills,
+    skill_count, 
+    rank
+FROM 
+    skill_counts
 WHERE 
-    sd.skills IS NOT Null
-GROUP BY
-    sd.skills, daj.salary_range
+    rank <= 10
 ORDER BY 
-    daj.salary_range DESC
+    salary_range, rank;
 
 
 -- What is the average salary associated with the top data analyst skills required
