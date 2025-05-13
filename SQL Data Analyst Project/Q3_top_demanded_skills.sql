@@ -1,5 +1,6 @@
 -- RESEARCH QUESTION #3: What are the most in-demand skills for a data analyst?
 
+
 -- @block
 SELECT 
     count(*) AS num_jobs,

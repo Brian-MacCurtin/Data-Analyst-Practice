@@ -1,7 +1,7 @@
 -- RESEARCH QUESTION #2: What are the skills required for the top paying data analyst jobs
 
 
--- Finding all skills associated with the top 10 paying remote data analyst jobs
+-- All skills associated with the top 10 highest paying remote data analyst jobs
 -- @block
 WITH top_10_jobs AS (
     SELECT 
@@ -70,7 +70,8 @@ ORDER BY
     num_jobs DESC
 
 
--- Finding all skills associated with the top 10 paying data analyst jobs in Philadelphia, PA
+
+-- All skills associated with the top 10 highest paying data analyst jobs in Philadelphia, PA
 -- @block
 WITH top_10_jobs AS (
     SELECT *
@@ -103,6 +104,7 @@ INNER JOIN skills_job_dim sjd
     ON t10.job_id = sjd.job_id
 INNER JOIN skills_dim sd 
     ON sd.skill_id = sjd.skill_id
+
 
 
 -- Most frequently required skills for the top 10 paying data analyst jobs in Philadelphia, PA

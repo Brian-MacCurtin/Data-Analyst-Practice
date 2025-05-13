@@ -1,6 +1,7 @@
 -- RESEARCH QUESTION #5: What are the optimal skills to learn for a data analyst? What skills are in demand AND high paying?
 
--- Returning jobs that are both in the top 75 most demanded skills and top 100 higherst paying skills  to find the most optimal skills
+
+-- Jobs that are both in the top 75 most demanded skills and top 75 highest paying skills
 -- @block
 WITH top_skills AS (
     SELECT 

@@ -23,6 +23,7 @@ ORDER BY
 LIMIT 10
 
 
+
 -- Top 10 jobs in Philadelphia, PA based on salary. (Only looking at highest paying jobs from each company)
 -- @block
 SELECT *
