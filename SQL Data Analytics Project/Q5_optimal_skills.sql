@@ -5,8 +5,8 @@
 -- @block
 WITH top_skills AS (
     SELECT 
-        count(*) AS num_jobs,
-        sd.skills
+        sd.skills AS skill,
+        count(*) AS num_jobs    
     FROM
         job_postings_fact jpf
     INNER JOIN skills_job_dim sjd
@@ -25,7 +25,7 @@ WITH top_skills AS (
 
 skill_salary AS (
     SELECT 
-        sd.skills,
+        sd.skills AS skill,
         ROUND(AVG(jpf.salary_year_avg), 2) AS average_salary
     FROM
         job_postings_fact jpf
@@ -44,12 +44,12 @@ skill_salary AS (
 )
 
 SELECT
-    top_skills.skills,
+    top_skills.skill,
     top_skills.num_jobs,
     skill_salary.average_salary
 FROM
     top_skills
 INNER JOIN skill_salary
-    ON top_skills.skills = skill_salary.skills
+    ON top_skills.skill = skill_salary.skill
 ORDER BY
     top_skills.num_jobs DESC
