@@ -3,8 +3,8 @@
 
 -- @block
 SELECT 
-    count(*) AS num_jobs,
-    sd.skills
+    sd.skills AS skill,
+    count(*) AS num_jobs
 FROM
     job_postings_fact jpf
 INNER JOIN skills_job_dim sjd
