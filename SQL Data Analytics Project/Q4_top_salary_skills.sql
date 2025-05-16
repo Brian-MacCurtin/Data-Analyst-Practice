@@ -77,8 +77,8 @@ ORDER BY
 -- @block
 WITH top_skills AS (
     SELECT 
+        sd.skills AS skill,
         count(*) AS num_jobs,
-        sd.skills,
         ROUND(AVG(jpf.salary_year_avg), 2) AS average_salary
     FROM
         job_postings_fact jpf
@@ -96,7 +96,7 @@ WITH top_skills AS (
 )
 
 SELECT
-    ts.skills,
+    ts.skill,
     ts.average_salary
 FROM
     top_skills ts
