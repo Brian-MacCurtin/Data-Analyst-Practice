@@ -4,7 +4,7 @@
 -- Highest paying data analyst skills
 --@block
 SELECT 
-    sd.skills,
+    sd.skills AS skill,
     ROUND(AVG(jpf.salary_year_avg), 2) AS average_salary
 FROM
     job_postings_fact jpf
