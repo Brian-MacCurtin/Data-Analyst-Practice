@@ -56,8 +56,8 @@ WITH top_10_jobs AS (
 )
 
 SELECT 
-    count(*) AS num_jobs,
-    sd.skills
+    sd.skills AS skill,
+    count(*) AS num_jobs
 FROM 
     top_10_jobs t10
 INNER JOIN skills_job_dim sjd
@@ -132,8 +132,8 @@ WITH top_10_jobs AS (
 )
 
 SELECT 
-    count(*) AS num_jobs,
-    sd.skills
+    sd.skills AS skill,
+    count(*) AS num_jobs
 FROM 
     top_10_jobs t10
 INNER JOIN skills_job_dim sjd
