@@ -1,10 +1,12 @@
 # Project Motivation
-This project was designed to teach me the basics of setting up a database, using SQL queries to accsess it, and how to format the results from those queries.
+This project was designed to teach me the basics of setting up a database, using SQL queries to access it, and how to format the results from those queries.
 
-I learned how to manipulate datasets to return the results I wanted and I also learned how to join together multiple datasets to display different information across  different data sets.
+I learned how to manipulate datasets to return the results I wanted. I utalized subqueries and common table expressions (CTEs) to organize mt queries. I also learned how to join together multiple datasets to display different information across different the datasets.
 
 # Project Overview
-This project takes a deeper look at job postings for data analyst roles across the globe in 2023. Using four different datasets that contain information about the job postings, the project focused on trying to find the best jobs in the data analyst world and also the trends of what is required for different jobs. This includes looking at **highest-paying** skills and the **most in demand** skills.
+This project takes a deeper look at job postings for data analyst roles across the globe in 2023. Using four different datasets that contain information about the job postings, the project focused on trying to find certain trends for jobs that I'm interested in.
+
+Athough there were many different job titles in this dataset, I focused solely on positions that fell under the category of data analyst. I also mainly cared about the salary of the job and what skills where required for the job. 
 
 ## Research Questions
 
@@ -33,7 +35,7 @@ Information about the names and types of variables, as well as the relationship 
 
 ## Research Question 1: What are the **top-paying** jobs for a data analyst?
 
-EXPLANATION OF WHAT I DID
+For the first research question, I filtered down the data lo only look at the top 10 highest paying remote data analyst jobs. I joined the table that had job the job posting information with the table that had information about the company so I could include the company name in the results. I also kept only certain columns I felt were informative from the table with the information about the job postings. 
 
 ```SQL
 SELECT 
@@ -70,11 +72,10 @@ LIMIT 10
 
 *Table 1: The Top 10 Highest Paying Remote Data Analyst Jobs*
 
-I also looked at job postings in Philadelphia, PA, which is near where I'm based. The only line I altered from the previous code was:
+I also analyzed job postings from Philadelphia, PA, which is near where I'm based. The only line I altered from the previous code was:
 ```SQL
 jpf.job_location = 'Philadelphia'
 ```
-The results:
 | Company Name                         | Title                                                                 | Location         | Yearly Salary | Contract Type             | Date       |
 |-------------------------------------|------------------------------------------------------------------------|------------------|----------------|----------------------------|------------|
 | SpecialCase                         | Data Analyst for Security Analytics & Innovation Team                 | Philadelphia, PA | $150,000.00    | Full-time                 | 2023-08-28 |
@@ -90,8 +91,11 @@ The results:
 
 *Table 2: The Top 10 Highest Paying Data Analyst in Philadelphia, PA*
 
-In general
+- In general, we can see that a lot of the job titles for remote positions contain high level titles like "Director", "Associate Director" and "Principal". This leads to  salaries for the top paying remote jobs ranging from $184k to a whopping $650K. 
 
+- In constrast, the salaries for top paying jobs in Philadelphia are substantially lower at a range of $85k to $150K. The jobs also feature fewer high ranking titles in the job position name. 
+
+- We can also see a nice mix of household name companies (Meta, AT&T, US Department of transportation) and lesser known companies in the highest paying data analyst jobs.
 
 ## Research Question 2: What are the **skills** required for the **top paying** data analyst jobs?
 
@@ -143,6 +147,9 @@ ORDER BY
 
 *Table 3: The Most Demanded Skills for the Top 10 Highest Paying Remote Data Analyst Jobs*
 
+- SQL seems to be the common demoniator in remote data analyst jobs with 8 of the top paying companies requiring it
+
+- Programming languages Python and R are also highly sought after
 
 As with research question 1, I also looked at the skills demanded from the top 10 highest paying jobs in Philadelphia, PA. The only line I altered from the previous code was:
 ```SQL
@@ -160,11 +167,13 @@ jpf.job_location = 'Philadelphia'
 
 *Table 4: The Most Demanded Skills for the Top 10 Highest Paying Data Analyst Jobs in Philadelphia, PA*
 
+- SQL again leads the way with 6 of the top paying data analyst roles in Philadelphia requiring it
 
-In general
+- Both progamming languages that were seen in remote jobs, Python and R, are not as in demand for the top paying data analyst jobs in Philadelphia
 
 ## Research Question 3: What are the most **in demand skills** for a data analyst?
-I looked in gerneral not one specific area EXPLAIN MORE
+
+For this question, I wanted to look at **all** data analyst jobs. instead of looking at just remote jobs or jobs in a certain area.
 ```SQL
 SELECT 
     sd.skills AS skill,
@@ -182,12 +191,12 @@ GROUP BY
     sd.skills
 ORDER BY 
     num_jobs DESC
-LIMIT 25
+LIMIT 15
 ```
 | Skill        | # Jobs |
 |--------------|--------|
 | sql          | 92,628 |
-| excel        | 67,031 |
+| excel        | 67,031 | 
 | python       | 57,326 |
 | tableau      | 46,554 |
 | power bi     | 39,468 |
@@ -201,22 +210,21 @@ LIMIT 25
 | aws          | 9,063  |
 | sql server   | 8,304  |
 | go           | 7,928  |
-| flow         | 7,289  |
-| vba          | 6,870  |
-| looker       | 6,271  |
-| snowflake    | 6,194  |
-| qlik         | 5,693  |
-| java         | 5,251  |
-| spark        | 5,041  |
-| jira         | 4,753  |
-| spss         | 4,711  |
-| javascript   | 4,610  |
 
-*Table 5: The 25 Most Demanded Skills for All Data Analyst Jobs*
+*Table 5: The 15 Most Demanded Skills for All Data Analyst Jobs*
 
-takeaway:
+- SQL remains the most demanded job, even among all job salary levels
+
+- Programming languages Python, R, and SAS are all in the top 7 most demanded skills
+
+- Data visualization tools Tableau and Power Bi are both in the top 5 most demanded skills
+
+- The most popular Microsoft Office tools - Excel, Porwerpoint, and Word - are among the highest demanded skills
+
+- The remaining skills can be categorized as databases or data querying tools
 
 ## Research Question 4: Which data analyst **skills** are associated with the **highest salaries**?
+
 First, I looked at the average salaries of job postings that require certain skills. I want to see which skills are associated with the highest average salaries MORE EXPLANATION
 
 ```SQL
@@ -235,7 +243,7 @@ WHERE
 GROUP BY
     sd.skills
 ORDER BY average_salary DESC
-LIMIT 25
+LIMIT 15
 ```
 | Skill        | Average Salary |
 |--------------|----------------|
@@ -254,20 +262,15 @@ LIMIT 25
 | puppet       | 129,820.00     |
 | keras        | 127,013.33     |
 | pytorch      | 125,226.20     |
-| perl         | 124,685.75     |
-| ansible      | 124,370.00     |
-| hugging face | 123,950.00     |
-| tensorflow   | 120,646.83     |
-| cassandra    | 118,406.68     |
-| notion       | 118,091.67     |
-| atlassian    | 117,965.60     |
-| bitbucket    | 116,711.75     |
-| airflow      | 116,387.26     |
-| scala        | 115,479.53     |
 
-*Table 6: The Top 25 Skills By Their Average Salary* 
+*Table 6: The Top 15 Skills By Their Average Salary* 
 
-I also wanted to look at the average salaries associated with the top 25 most in demand skills for data analyst roles  MORE EXPLANATION
+- The top skill demanded is svn which has an average salary more than twice of any other skill salary at $400k
+
+- None of the top 15 skills by their average salaries are among the top 15 most demanded skills
+
+I also wanted to look at the average salaries associated with the top 15 most in demand skills for data analyst roles  MORE EXPLANATION
+
 ```SQL
 WITH top_skills AS (
     SELECT 
@@ -281,12 +284,11 @@ WITH top_skills AS (
     INNER JOIN skills_dim sd
         ON sjd.skill_id = sd.skill_id
     WHERE 
-        jpf.job_title_short = 'Data Analyst' AND
-        jpf.salary_year_avg IS NOT Null
+        jpf.job_title_short = 'Data Analyst' 
     GROUP BY
         sd.skills
     ORDER BY num_jobs DESC
-    LIMIT 25 
+    LIMIT 15 
 )
 
 SELECT
@@ -294,41 +296,37 @@ SELECT
     ts.average_salary
 FROM
     top_skills ts
+ORDER BY 
+    ts.average_salary DESC
 ```
-| Skill       | Average Salary |
-|-------------|----------------|
-| sql         | 96,435.33      |
-| excel       | 86,418.90      |
-| python      | 101,511.85     |
-| tableau     | 97,978.08      |
-| r           | 98,707.80      |
-| power bi    | 92,323.60      |
-| sas         | 93,707.36      |
-| word        | 82,940.76      |
-| powerpoint  | 88,315.61      |
-| sql server  | 96,191.42      |
-| oracle      | 100,964.19     |
-| azure       | 105,399.62     |
-| aws         | 106,439.84     |
-| go          | 97,266.97      |
-| flow        | 98,019.82      |
-| looker      | 103,855.35     |
-| snowflake   | 111,577.72     |
-| spss        | 85,292.80      |
-| spark       | 113,001.94     |
-| vba         | 93,844.97      |
-| sap         | 92,446.21      |
-| outlook     | 80,680.33      |
-| sharepoint  | 89,027.16      |
-| sheets      | 84,129.61      |
-| javascript  | 91,805.12      |
+| Skill        | Average Salary |
+|--------------|----------------|
+| aws          | $106,439.84    |
+| azure        | $105,399.62    |
+| python       | $101,511.85    |
+| oracle       | $100,964.19    |
+| r            | $98,707.80     |
+| tableau      | $97,978.08     |
+| go           | $97,266.97     |
+| sql          | $96,435.33     |
+| sql server   | $96,191.42     |
+| sas          | $93,707.36     |
+| sap          | $92,446.21     |
+| power bi     | $92,323.60     |
+| powerpoint   | $88,315.61     |
+| excel        | $86,418.90     |
+| word         | $82,940.76     |
 
-*Table 7: The Average Salaries of the Top 25 Demanded Skills*
+*Table 7: The Average Salaries of the Top 15 Demanded Skills*
 
-FINDINGS
+- Of the top 15 demanded skills, aws has the highest aveerage salary
 
-## Research Question 5: What are the **optimal skills** to learn for a data analyst? What skills are both in demand **AND** high paying?
-EXPLANATION
+- Python tops the lists of programming languages in terms of average salary
+
+- The three Microsoft Office tools are associated with the lowest salaries
+
+## Research Question 5: What are the **optimal skills** to learn for a data analyst? 
+I classified an optimal skill by being both in demand  **AND** high paying. I created two CTEs to get two temporary datasets. One stored the skills that were in the top 65 most demanded, and the other stored the skills that were in the top 65 highest paying.
 
 ```SQL
 WITH top_skills AS (
@@ -410,6 +408,12 @@ ORDER BY
 
 *Table 8: The Skills That Are Both Top 65 Most Demanded and Top 65 Highest Paying*
 
-FINDINGS
+- Only 23 skills are in the top 65 most demanded and top 65 highest paying
+
+- Aws is the only skill on this list that is in the top 15 most demanded skills, seen in *Table 5*
+
+- Kafka is the only skill on this list that is in the top 15 highest paying skills, seen in *Table 6*
+
+- PostgreSQL, which I used for this project, is an optimal skill to know
 
 # Conclusion
