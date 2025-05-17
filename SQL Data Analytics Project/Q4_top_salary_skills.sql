@@ -100,4 +100,4 @@ SELECT
 FROM
     top_skills ts
 ORDER BY 
-    ts.average_salary
+    ts.average_salary DESC
