@@ -18,7 +18,7 @@ WHERE
 GROUP BY
     sd.skills
 ORDER BY average_salary DESC
-LIMIT 25
+LIMIT 15
 
 
 
@@ -91,7 +91,7 @@ WITH top_skills AS (
     GROUP BY
         sd.skills
     ORDER BY num_jobs DESC
-    LIMIT 25 
+    LIMIT 15 
 )
 
 SELECT
@@ -99,3 +99,5 @@ SELECT
     ts.average_salary
 FROM
     top_skills ts
+ORDER BY 
+    ts.average_salary
