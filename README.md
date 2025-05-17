@@ -99,7 +99,7 @@ jpf.job_location = 'Philadelphia'
 
 ## Research Question 2: What are the **skills** required for the **top paying** data analyst jobs?
 
-EXPLANATION OF WHAT I DID
+Next, I wanted to find some commonalities between the highest paying remote data analyst jobs. One thing in particular I wanted to look at was what skills one must have in order to land one of these jobs. I joined together the table with jobs postings to the table that listed all of skills, and sorted the results in descending order, staring with the most in demand skill.
 
 ```SQL
 WITH top_10_jobs AS (
@@ -151,7 +151,7 @@ ORDER BY
 
 - Programming languages Python and R are also highly sought after
 
-As with research question 1, I also looked at the skills demanded from the top 10 highest paying jobs in Philadelphia, PA. The only line I altered from the previous code was:
+As with research question 1, I also looked at the skills demanded from the top 10 highest paying jobs in Philadelphia. The only line I altered from the previous code was:
 ```SQL
 jpf.job_location = 'Philadelphia'
 ```
@@ -173,7 +173,7 @@ jpf.job_location = 'Philadelphia'
 
 ## Research Question 3: What are the most **in demand skills** for a data analyst?
 
-For this question, I wanted to look at **all** data analyst jobs. instead of looking at just remote jobs or jobs in a certain area.
+For this question, I wanted to look at **all** data analyst jobs instead of looking at oly remote jobs or jobs in a certain area. Similar to the previous research, I sorted the results in descending order, starting with the most in demand skill.
 ```SQL
 SELECT 
     sd.skills AS skill,
@@ -225,7 +225,7 @@ LIMIT 15
 
 ## Research Question 4: Which data analyst **skills** are associated with the **highest salaries**?
 
-First, I looked at the average salaries of job postings that require certain skills. I want to see which skills are associated with the highest average salaries MORE EXPLANATION
+First, I looked at the average salaries of jobs that require certain skills to see what are the highest paying skills. 
 
 ```SQL
 SELECT 
@@ -269,7 +269,7 @@ LIMIT 15
 
 - None of the top 15 skills by their average salaries are among the top 15 most demanded skills
 
-I also wanted to look at the average salaries associated with the top 15 most in demand skills for data analyst roles  MORE EXPLANATION
+I also wanted to look at the average salaries associated with the top 15 most in demand skills I found in research question 3.
 
 ```SQL
 WITH top_skills AS (
@@ -326,6 +326,7 @@ ORDER BY
 - The three Microsoft Office tools are associated with the lowest salaries
 
 ## Research Question 5: What are the **optimal skills** to learn for a data analyst? 
+
 I classified an optimal skill by being both in demand  **AND** high paying. I created two CTEs to get two temporary datasets. One stored the skills that were in the top 65 most demanded, and the other stored the skills that were in the top 65 highest paying.
 
 ```SQL
