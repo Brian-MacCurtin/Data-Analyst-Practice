@@ -87,8 +87,7 @@ WITH top_skills AS (
     INNER JOIN skills_dim sd
         ON sjd.skill_id = sd.skill_id
     WHERE 
-        jpf.job_title_short = 'Data Analyst' AND
-        jpf.salary_year_avg IS NOT Null
+        jpf.job_title_short = 'Data Analyst' 
     GROUP BY
         sd.skills
     ORDER BY num_jobs DESC
