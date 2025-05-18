@@ -1,12 +1,24 @@
-# Project Motivation
-This project was designed to teach me the basics of setting up a database, using SQL queries to access it, and how to format the results from those queries.
-
-I learned how to manipulate datasets to return the results I wanted. I utalized subqueries and common table expressions (CTEs) to organize mt queries. I also learned how to join together multiple datasets to display different information across different the datasets.
-
 # Project Overview
 This project takes a deeper look at job postings for data analyst roles across the globe in 2023. Using four different datasets that contain information about the job postings, the project focused on trying to find certain trends for jobs that I'm interested in.
 
-Athough there were many different job titles in this dataset, I focused solely on positions that fell under the category of data analyst. I also mainly cared about the salary of the job and what skills where required for the job. 
+Although there were different job titles in this dataset, I focused solely on positions that fell under the category of data analyst. I also mainly cared about the salary of the job and what skills were required for the job. 
+
+# Project Motivation
+This project was designed to teach me the basics of setting up a database, using SQL queries to access it, and how to format the results from those queries.
+
+### Some Things I Learned / Used:
+- Operators (<, >, =, *between*, *and*, or*, *like*)
+- Column aliases using *AS*
+- Aggregating Data through *count* and *avg*
+- Subqueries / common table expressions (CTEs) 
+- Joining different tables together with *left join* and *inner join* 
+
+### Tools I Used for the Project:
+- SQL → Language used to query the database
+- PostgreSQL → Database used to store data
+- Visual Studio Code → Platform used to write SQL queries
+- Git/Github → Tracks code updates and used for presentation
+- Markdown → Writing this report
 
 ## Research Questions
 
@@ -35,7 +47,7 @@ Information about the names and types of variables, as well as the relationship 
 
 ## Research Question 1: What are the **top-paying** jobs for a data analyst?
 
-For the first research question, I filtered down the data lo only look at the top 10 highest paying remote data analyst jobs. I joined the table that had job the job posting information with the table that had information about the company so I could include the company name in the results. I also kept only certain columns I felt were informative from the table with the information about the job postings. 
+For the first research question, I filtered down the data and only looked at the top 10 highest paying remote data analyst jobs. I joined the table that had the job posting information with the table that had information about the company, which allowed me to include the company name in the results. I also kept only certain columns I felt were informative from the table with the information about the job postings. 
 
 ```SQL
 SELECT 
@@ -91,15 +103,15 @@ jpf.job_location = 'Philadelphia'
 
 *Table 2: The Top 10 Highest Paying Data Analyst in Philadelphia, PA*
 
-- In general, we can see that a lot of the job titles for remote positions contain high level titles like "Director", "Associate Director" and "Principal". This leads to  salaries for the top paying remote jobs ranging from $184k to a whopping $650K. 
+- In general, we can see that a lot of the job titles for remote positions contain high level titles like "Director", "Associate Director" and "Principal". This leads to salaries for the top paying remote jobs ranging from $184k to a whopping $650K. 
 
-- In constrast, the salaries for top paying jobs in Philadelphia are substantially lower at a range of $85k to $150K. The jobs also feature fewer high ranking titles in the job position name. 
+- In contrast, the salaries for top paying jobs in Philadelphia are substantially lower at a range of $85k to $150K. The jobs also feature fewer high ranking titles in the job position name. 
 
 - We can also see a nice mix of household name companies (Meta, AT&T, US Department of transportation) and lesser known companies in the highest paying data analyst jobs.
 
 ## Research Question 2: What are the **skills** required for the **top paying** data analyst jobs?
 
-Next, I wanted to find some commonalities between the highest paying remote data analyst jobs. One thing in particular I wanted to look at was what skills one must have in order to land one of these jobs. I joined together the table with jobs postings to the table that listed all of skills, and sorted the results in descending order, staring with the most in demand skill.
+Next, I wanted to find some commonalities between the highest paying remote data analyst jobs. One thing in particular I wanted to look at was what skills one must have in order to land one of these jobs. I joined together the table with jobs postings to the table that listed all the skills, and sorted the results in descending order, starting with the most in demand skill.
 
 ```SQL
 WITH top_10_jobs AS (
@@ -147,7 +159,7 @@ ORDER BY
 
 *Table 3: The Most Demanded Skills for the Top 10 Highest Paying Remote Data Analyst Jobs*
 
-- SQL seems to be the common demoniator in remote data analyst jobs with 8 of the top paying companies requiring it
+- SQL seems to be the common denominator in remote data analyst jobs with 8 of the top paying companies requiring it
 
 - Programming languages Python and R are also highly sought after
 
@@ -169,11 +181,11 @@ jpf.job_location = 'Philadelphia'
 
 - SQL again leads the way with 6 of the top paying data analyst roles in Philadelphia requiring it
 
-- Both progamming languages that were seen in remote jobs, Python and R, are not as in demand for the top paying data analyst jobs in Philadelphia
+- Both programming languages that were seen in remote jobs, Python and R, are not as in demand for the top paying data analyst jobs in Philadelphia
 
 ## Research Question 3: What are the most **in demand skills** for a data analyst?
 
-For this question, I wanted to look at **all** data analyst jobs instead of looking at oly remote jobs or jobs in a certain area. Similar to the previous research, I sorted the results in descending order, starting with the most in demand skill.
+For this question, I wanted to look at **all** data analyst jobs instead of looking at only remote jobs or jobs in a certain area. Similar to the previous research, I sorted the results in descending order, starting with the most in demand skill.
 ```SQL
 SELECT 
     sd.skills AS skill,
@@ -219,7 +231,7 @@ LIMIT 15
 
 - Data visualization tools Tableau and Power Bi are both in the top 5 most demanded skills
 
-- The most popular Microsoft Office tools - Excel, Porwerpoint, and Word - are among the highest demanded skills
+- The most popular Microsoft Office tools - Excel, Powerpoint, and Word - are among the highest demanded skills
 
 - The remaining skills can be categorized as databases or data querying tools
 
@@ -319,7 +331,7 @@ ORDER BY
 
 *Table 7: The Average Salaries of the Top 15 Demanded Skills*
 
-- Of the top 15 demanded skills, aws has the highest aveerage salary
+- Of the top 15 demanded skills, aws has the highest average salary
 
 - Python tops the lists of programming languages in terms of average salary
 
@@ -327,7 +339,7 @@ ORDER BY
 
 ## Research Question 5: What are the **optimal skills** to learn for a data analyst? 
 
-I classified an optimal skill by being both in demand  **AND** high paying. I created two CTEs to get two temporary datasets. One stored the skills that were in the top 65 most demanded, and the other stored the skills that were in the top 65 highest paying.
+I classified an optimal skill by being both in demand **AND** high paying. I created two CTEs to get two temporary datasets. One stored the skills that were in the top 65 most demanded, and the other stored the skills that were in the top 65 highest paying.
 
 ```SQL
 WITH top_skills AS (
@@ -418,3 +430,5 @@ ORDER BY
 - PostgreSQL, which I used for this project, is an optimal skill to know
 
 # Conclusion
+
+This project gave me a great foundation for understanding how SQL works and how powerful it can be. I learned many of the fundamental functions used and how to properly format them for organizational and readability purposes. As for the actual project, I got a lot of insights into what the top paying jobs globally and locally are. But most importantly, I gained valuable information regarding what skills jobs are looking for. This helps me know which skills I should learn or continue to practice. 
