@@ -7,7 +7,7 @@ Although there were different job titles in this dataset, I focused solely on po
 This project was designed to teach me the basics of setting up a database, using SQL queries to access it, and how to format the results from those queries.
 
 ### Some Things I Learned / Used:
-- Operators (<, >, =, *between*, *and*, or*, *like*)
+- Operators (<, >, =, *between*, *and*, *or*, *like*)
 - Column aliases using *AS*
 - Aggregating Data through *count* and *avg*
 - Subqueries / common table expressions (CTEs) 
