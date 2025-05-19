@@ -26,17 +26,17 @@ NOTE: If you are having issues with permissions. And you get error:
 -- NOTE: This has been updated from the video to fix issues with encoding
 
 COPY company_dim
-FROM '/Users/brianmaccurtin/Downloads/Data Analyst Practice/SQL/csv_files/company_dim.csv'
+FROM '/Users/brianmaccurtin/Downloads/Data Analyst Practice/SQL Data Analyst Practice/Supplement Files/csv_files/company_dim.csv'
 WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
 
 COPY skills_dim
-FROM '/Users/brianmaccurtin/Downloads/Data Analyst Practice/SQL/csv_files/skills_dim.csv'
+FROM '/Users/brianmaccurtin/Downloads/Data Analyst Practice/SQL Data Analyst Practice/Supplement Files/csv_files/skills_dim.csv'
 WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
 
 COPY job_postings_fact
-FROM '/Users/brianmaccurtin/Downloads/Data Analyst Practice/SQL/csv_files/job_postings_fact.csv'
+FROM '/Users/brianmaccurtin/Downloads/Data Analyst Practice/SQL Data Analyst Practice/Supplement Files/csv_files/job_postings_fact.csv'
 WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
 
 COPY skills_job_dim
-FROM '/Users/brianmaccurtin/Downloads/Data Analyst Practice/SQL/csv_files/skills_job_dim.csv'
+FROM '/Users/brianmaccurtin/Downloads/Data Analyst Practice/SQL Data Analyst Practice/Supplement Files/csv_files/skills_job_dim.csv'
 WITH (FORMAT csv, HEADER true, DELIMITER ',', ENCODING 'UTF8');
