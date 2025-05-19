@@ -33,7 +33,7 @@ This project was designed to teach me the basics of setting up a database, using
 5. What are the **optimal skills** to learn for a data analyst? What skills are both in demand **AND** high paying?
 
 
-Please find the queries I used for the project here: [SQL Data Analytics Project](/Research%20Question%20Files/)
+Please find the queries I used for the project here: [SQL Data Analytics Project](/Supplement_Files/SQL_course_dataset_info.png)
 
 ## Dataset Background
 The data from the jobs postings was split into four different datasets: job_postings_fact, skills_job_dim, skills_dim, and company_dim
